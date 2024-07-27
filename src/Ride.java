@@ -7,21 +7,27 @@ public class Ride implements RideInterface {
     private Employee operator;
     private Queue<Visitor> queue;
     private List<Visitor> rideHistory;
+    private int maxRiders;
+    private int numOfCycles;
 
     // Default constructor
     public Ride() {
         this.queue = new LinkedList<>();
         this.rideHistory = new ArrayList<>();
+        this.maxRiders = 1;  // Default maxRiders
+        this.numOfCycles = 0; // Default numOfCycles
     }
 
     // Parameterized constructor
-    public Ride(String rideName, int capacity, boolean isOpen, Employee operator) {
+    public Ride(String rideName, int capacity, boolean isOpen, Employee operator, int maxRiders) {
         this.rideName = rideName;
         this.capacity = capacity;
         this.isOpen = isOpen;
         this.operator = operator;
         this.queue = new LinkedList<>();
         this.rideHistory = new ArrayList<>();
+        this.maxRiders = maxRiders;
+        this.numOfCycles = 0;
     }
 
     // Getters and setters
@@ -55,6 +61,22 @@ public class Ride implements RideInterface {
 
     public void setOperator(Employee operator) {
         this.operator = operator;
+    }
+
+    public int getMaxRiders() {
+        return maxRiders;
+    }
+
+    public void setMaxRiders(int maxRiders) {
+        this.maxRiders = maxRiders;
+    }
+
+    public int getNumOfCycles() {
+        return numOfCycles;
+    }
+
+    public void setNumOfCycles(int numOfCycles) {
+        this.numOfCycles = numOfCycles;
     }
 
     // Method to assign an Employee to operate the ride
@@ -96,13 +118,24 @@ public class Ride implements RideInterface {
 
     @Override
     public void runOneCycle() {
-        int rideCount = Math.min(queue.size(), capacity);
-        for (int i = 0; i < rideCount; i++) {
+        if (operator == null) {
+            System.out.println("No operator assigned to the ride. Cannot run the ride.");
+            return;
+        }
+        if (queue.isEmpty()) {
+            System.out.println("No visitors in the queue. Cannot run the ride.");
+            return;
+        }
+        int ridersCount = Math.min(maxRiders, queue.size());
+        for (int i = 0; i < ridersCount; i++) {
             Visitor visitor = queue.poll();
             if (visitor != null) {
                 rideHistory.add(visitor);
+                System.out.println("Visitor " + visitor.getName() + " has taken the ride.");
             }
         }
+        numOfCycles++;
+        System.out.println("Ride cycle completed. Number of cycles run: " + numOfCycles);
     }
 
     @Override

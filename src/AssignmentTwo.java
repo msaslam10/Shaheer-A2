@@ -3,6 +3,7 @@ public class AssignmentTwo {
         AssignmentTwo assignment = new AssignmentTwo();
         assignment.partFourA();
         assignment.partFourB();
+        assignment.partFive();
     }
 
     public void partThree() {
@@ -14,7 +15,7 @@ public class AssignmentTwo {
         Employee employee = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
 
         // Create a ride
-        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee);
+        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 3);
 
         // Create some sample visitors
         Visitor visitor1 = new Visitor("Michael", 25, "123 Wonderland Ave", "V001", "Day Pass");
@@ -47,7 +48,7 @@ public class AssignmentTwo {
         Employee employee = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
 
         // Create a ride
-        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee);
+        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 3);
 
         // Create some sample visitors
         Visitor visitor1 = new Visitor("Michael", 25, "123 Wonderland Ave", "V001", "Day Pass");
@@ -77,6 +78,32 @@ public class AssignmentTwo {
     }
 
     public void partFive() {
+        // Create an employee
+        Employee employee = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
+
+        // Create a ride
+        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 3);
+
+        // Create some sample visitors
+        Visitor visitor1 = new Visitor("Michael", 25, "123 Wonderland Ave", "V001", "Day Pass");
+        Visitor visitor2 = new Visitor("Sarah", 30, "456 Nowhere St", "V002", "Season Pass");
+        Visitor visitor3 = new Visitor("James", 22, "789 Somewhere Blvd", "V003", "Day Pass");
+        Visitor visitor4 = new Visitor("Emily", 28, "321 Fantasy Rd", "V004", "Day Pass");
+        Visitor visitor5 = new Visitor("Jessica", 26, "654 Adventure St", "V005", "Season Pass");
+
+        // Add visitors to the queue
+        rollerCoaster.addVisitorToQueue(visitor1);
+        rollerCoaster.addVisitorToQueue(visitor2);
+        rollerCoaster.addVisitorToQueue(visitor3);
+        rollerCoaster.addVisitorToQueue(visitor4);
+        rollerCoaster.addVisitorToQueue(visitor5);
+
+        // Run one cycle of the ride
+        rollerCoaster.runOneCycle();
+
+        // Print the ride history after running one cycle
+        System.out.println("Ride history after running one cycle:");
+        rollerCoaster.printRideHistory();
     }
 
     public void partSix() {
