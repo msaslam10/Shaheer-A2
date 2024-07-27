@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class Ride implements RideInterface {
     private String rideName;
@@ -114,9 +115,28 @@ public class Ride implements RideInterface {
             System.out.println("No visitors have taken the ride yet.");
         } else {
             System.out.println("Ride history:");
-            for (Visitor visitor : rideHistory) {
+            Iterator<Visitor> iterator = rideHistory.iterator();
+            while (iterator.hasNext()) {
+                Visitor visitor = iterator.next();
                 System.out.println("Visitor Name: " + visitor.getName() + ", Age: " + visitor.getAge() + ", Address: " + visitor.getAddress());
             }
         }
+    }
+
+    // Additional methods for managing the collection
+    public void addVisitorToRideHistory(Visitor visitor) {
+        if (rideHistory.add(visitor)) {
+            System.out.println("Visitor " + visitor.getName() + " has been added to the ride history.");
+        } else {
+            System.out.println("Failed to add Visitor " + visitor.getName() + " to the ride history.");
+        }
+    }
+
+    public boolean isVisitorInRideHistory(Visitor visitor) {
+        return rideHistory.contains(visitor);
+    }
+
+    public int getNumberOfVisitorsInRideHistory() {
+        return rideHistory.size();
     }
 }
