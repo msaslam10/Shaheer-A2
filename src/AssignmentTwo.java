@@ -1,29 +1,16 @@
+import java.util.*;
+
 public class AssignmentTwo {
     public static void main(String[] args) {
         AssignmentTwo assignment = new AssignmentTwo();
         assignment.partFive();
-    }
-
-    public void partThree() {
-        // Implementation for part three
-    }
-
-    public void partFourA() {
-        // Implementation for part four A
-    }
-
-    public void partFourB() {
-        // Implementation for part four B
+        assignment.partSix();
     }
 
     public void partFive() {
-        // Create an employee
         Employee employee = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
+        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 0);
 
-        // Create a ride
-        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 3);
-
-        // Create some sample visitors
         Visitor visitor1 = new Visitor("Michael", 25, "123 Wonderland Ave", "V001", "Day Pass");
         Visitor visitor2 = new Visitor("Sarah", 30, "456 Nowhere St", "V002", "Season Pass");
         Visitor visitor3 = new Visitor("James", 22, "789 Somewhere Blvd", "V003", "Day Pass");
@@ -35,7 +22,6 @@ public class AssignmentTwo {
         Visitor visitor9 = new Visitor("Alice", 27, "345 Fantasy St", "V009", "Season Pass");
         Visitor visitor10 = new Visitor("Brian", 24, "678 Magic Blvd", "V010", "Day Pass");
 
-        // Add visitors to the queue
         rollerCoaster.addVisitorToQueue(visitor1);
         rollerCoaster.addVisitorToQueue(visitor2);
         rollerCoaster.addVisitorToQueue(visitor3);
@@ -47,27 +33,30 @@ public class AssignmentTwo {
         rollerCoaster.addVisitorToQueue(visitor9);
         rollerCoaster.addVisitorToQueue(visitor10);
 
-        // Print all visitors in the queue
         System.out.println("Queue before running one cycle:");
         rollerCoaster.printQueue();
 
-        // Run one cycle of the ride
         rollerCoaster.runOneCycle();
 
-        // Print all visitors in the queue after one cycle is run
         System.out.println("Queue after running one cycle:");
         rollerCoaster.printQueue();
 
-        // Print all visitors in the collection (ride history)
         System.out.println("Ride history after running one cycle:");
         rollerCoaster.printRideHistory();
     }
 
     public void partSix() {
-        // Implementation for part six
-    }
+        Employee employee = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
+        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 0);
 
-    public void partSeven() {
-        // Implementation for part seven
+        // Add some visitors to the ride history for demonstration
+        Visitor visitor1 = new Visitor("Michael", 25, "123 Wonderland Ave", "V001", "Day Pass");
+        Visitor visitor2 = new Visitor("Sarah", 30, "456 Nowhere St", "V002", "Season Pass");
+        rollerCoaster.addVisitorToQueue(visitor1);
+        rollerCoaster.addVisitorToQueue(visitor2);
+        rollerCoaster.runOneCycle();
+
+        // Write ride history to file
+        rollerCoaster.writeRideHistoryToFile("ride_history.csv");
     }
 }
