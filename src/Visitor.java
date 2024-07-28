@@ -1,33 +1,23 @@
 public class Visitor extends Person {
-    private String visitorId;
-    private String passType;
+    private String visitorID;
+    private String ticketType;
 
-    // Default constructor
-    public Visitor() {
-        super();
-    }
+    public Visitor() {}
 
-    // Parameterized constructor
-    public Visitor(String name, int age, String address, String visitorId, String passType) {
+    public Visitor(String name, int age, String address, String visitorID, String ticketType) {
         super(name, age, address);
-        this.visitorId = visitorId;
-        this.passType = passType;
+        this.visitorID = visitorID;
+        this.ticketType = ticketType;
     }
 
     // Getters and setters
-    public String getVisitorId() {
-        return visitorId;
-    }
+    public String getVisitorID() { return visitorID; }
+    public void setVisitorID(String visitorID) { this.visitorID = visitorID; }
+    public String getTicketType() { return ticketType; }
+    public void setTicketType(String ticketType) { this.ticketType = ticketType; }
 
-    public void setVisitorId(String visitorId) {
-        this.visitorId = visitorId;
-    }
-
-    public String getPassType() {
-        return passType;
-    }
-
-    public void setPassType(String passType) {
-        this.passType = passType;
+    @Override
+    public String toString() {
+        return super.toString() + "," + visitorID + "," + ticketType;
     }
 }

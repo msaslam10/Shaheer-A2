@@ -1,133 +1,110 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Ride implements RideInterface {
-    private String name;
-    private int maxRider;
+    private String rideName;
+    private int maxRiders;
     private boolean isOpen;
-    private Employee rideOperator;
+    private Employee operator;
     private int numOfCycles;
     private Queue<Visitor> queue;
-    private List<Visitor> rideHistory;
+    private LinkedList<Visitor> rideHistory;
 
-    public Ride(String name, int maxRider, boolean isOpen, Employee rideOperator, int numOfCycles) {
-        this.name = name;
-        this.maxRider = maxRider;
-        this.isOpen = isOpen;
-        this.rideOperator = rideOperator;
-        this.numOfCycles = numOfCycles;
+    public Ride() {
         this.queue = new LinkedList<>();
-        this.rideHistory = new ArrayList<>();
+        this.rideHistory = new LinkedList<>();
     }
 
-    // Implementing RideInterface methods
+    public Ride(String rideName, int maxRiders, boolean isOpen, Employee operator, int numOfCycles) {
+        this.rideName = rideName;
+        this.maxRiders = maxRiders;
+        this.isOpen = isOpen;
+        this.operator = operator;
+        this.numOfCycles = numOfCycles;
+        this.queue = new LinkedList<>();
+        this.rideHistory = new LinkedList<>();
+    }
+
+    // Getters and setters
+    public String getRideName() { return rideName; }
+    public void setRideName(String rideName) { this.rideName = rideName; }
+    public int getMaxRiders() { return maxRiders; }
+    public void setMaxRiders(int maxRiders) { this.maxRiders = maxRiders; }
+    public boolean isOpen() { return isOpen; }
+    public void setOpen(boolean open) { isOpen = open; }
+    public Employee getOperator() { return operator; }
+    public void setOperator(Employee operator) { this.operator = operator; }
+    public int getNumOfCycles() { return numOfCycles; }
+    public void setNumOfCycles(int numOfCycles) { this.numOfCycles = numOfCycles; }
+
     @Override
     public void addVisitorToQueue(Visitor visitor) {
         queue.add(visitor);
-        System.out.println("Visitor " + visitor.getName() + " has been added to the queue.");
+        System.out.println(visitor.getName() + " added to the queue.");
     }
 
     @Override
     public void removeVisitorFromQueue(Visitor visitor) {
         if (queue.remove(visitor)) {
-            System.out.println("Visitor " + visitor.getName() + " has been removed from the queue.");
+            System.out.println(visitor.getName() + " removed from the queue.");
         } else {
-            System.out.println("Visitor " + visitor.getName() + " is not in the queue.");
+            System.out.println(visitor.getName() + " not found in the queue.");
         }
     }
 
     @Override
     public void printQueue() {
-        if (queue.isEmpty()) {
-            System.out.println("The queue is empty.");
-            return;
-        }
+        System.out.println("Visitors in queue:");
         for (Visitor visitor : queue) {
-            System.out.println("Visitor Name: " + visitor.getName() + ", Age: " + visitor.getAge() + ", Address: " + visitor.getAddress());
+            System.out.println(visitor);
         }
     }
 
     @Override
     public void runOneCycle() {
-        if (!isOpen) {
-            System.out.println("Ride is not open. Cannot run the ride.");
+        if (operator == null) {
+            System.out.println("Cannot run the ride without an operator.");
             return;
         }
         if (queue.isEmpty()) {
-            System.out.println("No visitors in the queue. Cannot run the ride.");
+            System.out.println("No visitors in queue to run the ride.");
             return;
         }
-        int riders = Math.min(maxRider, queue.size());
+
+        int riders = Math.min(maxRiders, queue.size());
         for (int i = 0; i < riders; i++) {
             Visitor visitor = queue.poll();
             rideHistory.add(visitor);
-            System.out.println("Visitor " + visitor.getName() + " has taken the ride.");
+            System.out.println(visitor.getName() + " is taking the ride.");
         }
         numOfCycles++;
-        System.out.println("Ride cycle completed. Number of cycles run: " + numOfCycles);
     }
 
     @Override
     public void printRideHistory() {
-        if (rideHistory.isEmpty()) {
-            System.out.println("No visitors have taken the ride yet.");
-            return;
-        }
+        System.out.println("Ride history:");
         for (Visitor visitor : rideHistory) {
-            System.out.println("Visitor Name: " + visitor.getName() + ", Age: " + visitor.getAge() + ", Address: " + visitor.getAddress());
+            System.out.println(visitor);
         }
     }
 
+    @Override
     public void writeRideHistoryToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (Visitor visitor : rideHistory) {
-                writer.write(visitor.getName() + "," + visitor.getAge() + "," + visitor.getAddress());
+                writer.write(visitor.toString());
                 writer.newLine();
             }
-            System.out.println("Ride history written to " + filename);
+            System.out.println("Ride history written to file: " + filename);
         } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
+            System.err.println("Error writing to file: " + e.getMessage());
         }
     }
 
-    // Getters and Setters
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getMaxRider() {
-        return maxRider;
-    }
-
-    public void setMaxRider(int maxRider) {
-        this.maxRider = maxRider;
-    }
-
-    public boolean isOpen() {
-        return isOpen;
-    }
-
-    public void setOpen(boolean open) {
-        isOpen = open;
-    }
-
-    public Employee getRideOperator() {
-        return rideOperator;
-    }
-
-    public void setRideOperator(Employee rideOperator) {
-        this.rideOperator = rideOperator;
-    }
-
-    public int getNumOfCycles() {
-        return numOfCycles;
-    }
-
-    public void setNumOfCycles(int numOfCycles) {
-        this.numOfCycles = numOfCycles;
+    public void addVisitorToRideHistory(Visitor visitor) {
+        rideHistory.add(visitor);
     }
 }
