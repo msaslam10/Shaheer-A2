@@ -20,7 +20,7 @@ public class AssignmentTwo {
         // Create an employee
         Employee employee = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
 
-        // Create a new ride object
+        // Create a ride
         Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 3);
 
         // Create some sample visitors
