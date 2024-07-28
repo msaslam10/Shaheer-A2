@@ -1,8 +1,5 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.io.*;
+import java.util.*;
 
 public class Ride implements RideInterface {
     private String rideName;
@@ -14,6 +11,11 @@ public class Ride implements RideInterface {
     private LinkedList<Visitor> rideHistory;
 
     public Ride() {
+        this.rideName = "";
+        this.maxRiders = 0;
+        this.isOpen = false;
+        this.operator = null;
+        this.numOfCycles = 0;
         this.queue = new LinkedList<>();
         this.rideHistory = new LinkedList<>();
     }
@@ -28,17 +30,7 @@ public class Ride implements RideInterface {
         this.rideHistory = new LinkedList<>();
     }
 
-    // Getters and setters
-    public String getRideName() { return rideName; }
-    public void setRideName(String rideName) { this.rideName = rideName; }
-    public int getMaxRiders() { return maxRiders; }
-    public void setMaxRiders(int maxRiders) { this.maxRiders = maxRiders; }
-    public boolean isOpen() { return isOpen; }
-    public void setOpen(boolean open) { isOpen = open; }
-    public Employee getOperator() { return operator; }
-    public void setOperator(Employee operator) { this.operator = operator; }
-    public int getNumOfCycles() { return numOfCycles; }
-    public void setNumOfCycles(int numOfCycles) { this.numOfCycles = numOfCycles; }
+    // Getters and setters...
 
     @Override
     public void addVisitorToQueue(Visitor visitor) {
@@ -104,7 +96,27 @@ public class Ride implements RideInterface {
         }
     }
 
-    public void addVisitorToRideHistory(Visitor visitor) {
-        rideHistory.add(visitor);
+    public void readRideHistoryFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] details = line.split(",");
+                if (details.length == 5) {
+                    Visitor visitor = new Visitor(details[0], Integer.parseInt(details[1]), details[2], details[3], details[4]);
+                    rideHistory.add(visitor);
+                }
+            }
+            System.out.println("Ride history read from file: " + filename);
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+        }
+    }
+
+    public int getRideHistorySize() {
+        return rideHistory.size();
+    }
+
+    public LinkedList<Visitor> getRideHistory() {
+        return rideHistory;
     }
 }

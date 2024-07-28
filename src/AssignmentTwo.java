@@ -1,36 +1,26 @@
 public class AssignmentTwo {
     public static void main(String[] args) {
         AssignmentTwo assignment = new AssignmentTwo();
-        assignment.partSix();
+        assignment.partSeven();
     }
 
-    public void partSix() {
-        Employee employee = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
-        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, employee, 0);
 
-        // Add a minimum of 5 visitors to the ride history
-        addVisitorsToRide(rollerCoaster);
 
-        // Export ride history to file
-        rollerCoaster.writeRideHistoryToFile("ride_history.csv");
+    public void partSeven() {
+        // Create a new ride
+        Employee operator = new Employee("John", 35, "101 Theme Park Rd", "E001", "Ride Operator");
+        Ride rollerCoaster = new Ride("Roller Coaster", 5, true, operator, 0);
 
-        System.out.println("Ride history has been exported to ride_history.csv");
-    }
+        // Import the ride history from the file
+        rollerCoaster.readRideHistoryFromFile("ride_history.csv");
 
-    private void addVisitorsToRide(Ride ride) {
-        Visitor visitor1 = new Visitor("Michael", 25, "123 Wonderland Ave", "V001", "Day Pass");
-        Visitor visitor2 = new Visitor("Sarah", 30, "456 Nowhere St", "V002", "Season Pass");
-        Visitor visitor3 = new Visitor("James", 22, "789 Somewhere Blvd", "V003", "Day Pass");
-        Visitor visitor4 = new Visitor("Emily", 28, "321 Fantasy Rd", "V004", "Day Pass");
-        Visitor visitor5 = new Visitor("Jessica", 26, "654 Adventure St", "V005", "Season Pass");
+        // Print the number of visitors in the ride history
+        System.out.println("Number of visitors in the ride history: " + rollerCoaster.getRideHistorySize());
 
-        ride.addVisitorToQueue(visitor1);
-        ride.addVisitorToQueue(visitor2);
-        ride.addVisitorToQueue(visitor3);
-        ride.addVisitorToQueue(visitor4);
-        ride.addVisitorToQueue(visitor5);
-
-        // Run one cycle to add visitors to ride history
-        ride.runOneCycle();
+        // Print all visitors in the ride history
+        System.out.println("Visitors in the ride history:");
+        for (Visitor visitor : rollerCoaster.getRideHistory()) {
+            System.out.println(visitor);
+        }
     }
 }
