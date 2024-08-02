@@ -1,23 +1,35 @@
-public class Employee extends Person {
-    private String employeeID;
-    private String jobTitle;
+public class Employee {
+    private String name;
+    private int age;
+    private String address;
+    private String id;
+    private String position;
 
-    public Employee() {}
-
-    public Employee(String name, int age, String address, String employeeID, String jobTitle) {
-        super(name, age, address);
-        this.employeeID = employeeID;
-        this.jobTitle = jobTitle;
+    public Employee(String name, int age, String address, String id, String position) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.id = id;
+        this.position = position;
     }
 
-    // Getters and setters
-    public String getEmployeeID() { return employeeID; }
-    public void setEmployeeID(String employeeID) { this.employeeID = employeeID; }
-    public String getJobTitle() { return jobTitle; }
-    public void setJobTitle(String jobTitle) { this.jobTitle = jobTitle; }
+    public String getName() {
+        return name;
+    }
 
-    @Override
-    public String toString() {
-        return super.toString() + "," + employeeID + "," + jobTitle;
+    public int getAge() {
+        return age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getPosition() {
+        return position;
     }
 }
